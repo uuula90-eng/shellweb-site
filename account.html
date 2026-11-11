@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shell — Личный кабинет</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-backdrop" id="page-backdrop">
+    <div class="hero-mesh"></div>
+    <div class="hero-hud-layer hero-hud-base" id="hero-hud-base"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-lit-wrap" id="hero-lit-wrap" aria-hidden="true">
+      <div class="hero-cursor-fill"></div>
+      <div class="hero-mesh-lit"></div>
+      <div class="hero-hud-layer hero-hud-lit" id="hero-hud-lit"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Shell</span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a class="nav-link" href="index.html#features">Функции</a>
+        <a class="nav-link" href="index.html#status">Статус</a>
+        <a class="nav-link" href="index.html#pricing">Прайс</a>
+        <a class="nav-link" href="forum.html">Форум</a>
+        <a class="nav-link" href="faq.html">FAQ</a>
+        <a class="nav-link" href="eula.html">EULA</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-text-link" id="nav-login-link" href="account.html">Войти</a>
+        <a class="btn btn-white btn-sm" id="nav-account-btn" href="account.html?mode=register">Регистрация →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main account-section">
+    <div class="container account-wrap">
+      <!-- Auth View -->
+      <div class="auth-wrap" id="auth-view">
+        <div class="auth-card">
+          <div class="auth-tabs" role="tablist">
+            <button class="auth-tab active" type="button" id="tab-login" role="tab" aria-selected="true">Вход</button>
+            <button class="auth-tab" type="button" id="tab-register" role="tab" aria-selected="false">Регистрация</button>
+          </div>
+
+          <div class="auth-body">
+            <div class="form-msg is-hidden" id="plan-banner"></div>
+
+            <form class="form-stack" id="login-form">
+              <div>
+                <h1 class="auth-title">Вход в кабинет</h1>
+                <p class="auth-subtitle">Управление подпиской Shell, лоадером и привязкой HWID.</p>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="login-username">Логин</label>
+                <input class="input" id="login-username" name="login" type="text" autocomplete="username" required>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="login-password">Пароль</label>
+                <div class="input-wrap">
+                  <input class="input" id="login-password" name="password" type="password" autocomplete="current-password" required>
+                  <button class="input-eye-btn" type="button" data-toggle-pass="login-password" aria-label="Показать пароль">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M1.5 8C3 4.8 5.4 3.5 8 3.5C10.6 3.5 13 4.8 14.5 8C13 11.2 10.6 12.5 8 12.5C5.4 12.5 3 11.2 1.5 8Z" stroke="currentColor" stroke-width="1.25"/>
+                      <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.25"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-msg is-hidden" id="login-msg"></div>
+
+              <button class="btn btn-white btn-full" type="submit" id="login-submit">Войти →</button>
+            </form>
+
+            <form class="form-stack is-hidden" id="register-form">
+              <div>
+                <h1 class="auth-title">Регистрация</h1>
+                <p class="auth-subtitle">Создайте аккаунт Shell для активации ключа и доступа к лоадеру.</p>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="reg-username">Логин (3–32 символа, латиница)</label>
+                <input class="input" id="reg-username" name="login" type="text" autocomplete="username" required>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="reg-password">Пароль (от 6 символов)</label>
+                <div class="input-wrap">
+                  <input class="input" id="reg-password" name="password" type="password" autocomplete="new-password" required>
+                  <button class="input-eye-btn" type="button" data-toggle-pass="reg-password" aria-label="Показать пароль">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M1.5 8C3 4.8 5.4 3.5 8 3.5C10.6 3.5 13 4.8 14.5 8C13 11.2 10.6 12.5 8 12.5C5.4 12.5 3 11.2 1.5 8Z" stroke="currentColor" stroke-width="1.25"/>
+                      <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.25"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="reg-password2">Повтор пароля</label>
+                <input class="input" id="reg-password2" name="passwordConfirm" type="password" autocomplete="new-password" required>
+              </div>
+
+              <div class="form-msg is-hidden" id="register-msg"></div>
+
+              <button class="btn btn-white btn-full" type="submit" id="register-submit">Создать аккаунт →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Dashboard View -->
+      <div class="cab-shell is-hidden" id="dash-view">
+        <aside class="cab-sidebar" aria-label="Разделы личного кабинета">
+          <div>
+            <div class="gs-brand">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+              </svg>
+              <span>Shell Cabinet</span>
+            </div>
+
+            <div class="gs-group-label">Навигация</div>
+            <div class="gs-nav-list" role="tablist">
+              <button class="gs-nav-btn active" type="button" data-cab-tab="overview">
+                <span class="gs-nav-left"><span>Обзор</span></span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-cab-tab="keys">
+                <span class="gs-nav-left"><span>Ключи и тарифы</span></span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-cab-tab="loader">
+                <span class="gs-nav-left"><span>Лоадер и запуск</span></span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-cab-tab="configs">
+                <span class="gs-nav-left"><span>Веб-конфиги</span></span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-cab-tab="security">
+                <span class="gs-nav-left"><span>Безопасность и HWID</span></span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="gs-footer-links">
+              <button class="gs-nav-btn" type="button" id="logout-btn">
+                <span class="gs-nav-left"><span>Выйти из аккаунта</span></span>
+              </button>
+            </div>
+
+            <div class="gs-user-card">
+              <span class="gs-avatar" id="cab-avatar">S</span>
+              <div>
+                <div class="gs-user-name" id="dash-title">—</div>
+                <div class="gs-user-host" id="cab-role-line">user</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="cab-main">
+          <div class="cab-topbar">
+            <div class="gs-topbar-left">
+              <span class="gs-cat-title" id="cab-active-title">Обзор</span>
+            </div>
+
+            <div class="cab-topbar-right">
+              <span class="status-pill" id="dash-badge">
+                <span class="status-dot"></span>
+                <span id="dash-badge-text">Нет подписки</span>
+              </span>
+              <a class="btn btn-sm btn-ghost btn-rect" href="index.html#showcase">ClickGUI</a>
+            </div>
+          </div>
+
+          <div class="cab-viewport">
+            <!-- Tab 1: Overview -->
+            <div class="cab-panel" id="cab-panel-overview">
+              <div class="cab-metrics">
+                <div class="cab-metric-card">
+                  <span class="cab-metric-label">Статус подписки</span>
+                  <span class="cab-metric-val" id="m-sub-state">—</span>
+                </div>
+                <div class="cab-metric-card">
+                  <span class="cab-metric-label">Аппаратный HWID</span>
+                  <span class="cab-metric-val" id="m-hwid-state">Не привязан</span>
+                </div>
+                <div class="cab-metric-card">
+                  <span class="cab-metric-label">Активные сессии</span>
+                  <span class="cab-metric-val" id="u-sessions">0</span>
+                </div>
+              </div>
+
+              <div class="cab-grid">
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Подписка и остаток</h2>
+                      <span class="gs-val-badge" id="u-sub-expires">—</span>
+                    </div>
+                    <p class="plan-desc" id="u-sub-desc">Подписка открывает скачивание лоадера terminal.exe и доступ к сборкам под 1.21.10 Fabric.</p>
+                    <div class="cab-progress-wrap">
+                      <div class="cab-progress-bar">
+                        <div class="cab-progress-fill" id="cab-sub-fill"></div>
+                      </div>
+                      <div class="cab-progress-meta">
+                        <span id="cab-sub-left">0 дн.</span>
+                        <span>Shell 1.21.10</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dash-actions">
+                    <button class="btn btn-sm btn-white btn-rect" type="button" data-cab-goto="loader">Скачать лоадер</button>
+                    <a class="btn btn-sm btn-ghost btn-rect" href="index.html#pricing">Тарифы</a>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Быстрая активация ключа</h2>
+                      <span class="gs-val-badge">SHELL-...</span>
+                    </div>
+                    <p class="plan-desc" id="redeem-hint">
+                      Введите ключ формата <span class="mono">SHELL-30D-...</span> или <span class="mono">SHELL-LIFE-...</span> для продления доступа.
+                    </p>
+                    <form class="form-stack" id="redeem-form">
+                      <div class="inline-form">
+                        <input class="input mono" id="key-input" type="text" placeholder="SHELL-30D-XXXX" autocomplete="off" required>
+                        <button class="btn btn-white btn-rect" type="submit" id="redeem-submit">Активировать</button>
+                      </div>
+                      <div class="form-msg is-hidden" id="redeem-msg"></div>
+                    </form>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Данные профиля</h2>
+                      <span class="gs-val-badge" id="u-roles">user</span>
+                    </div>
+                    <div class="kv-list">
+                      <div class="kv-row">
+                        <span class="kv-key">Логин</span>
+                        <span class="kv-val" id="u-login">—</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Account ID</span>
+                        <span class="kv-val" id="u-id">—</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Регистрация</span>
+                        <span class="kv-val" id="u-created">—</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Последняя активность</span>
+                        <span class="kv-val" id="u-lastseen">—</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Быстрые действия</h2>
+                      <span class="gs-val-badge">Win64</span>
+                    </div>
+                    <div class="kv-list">
+                      <div class="kv-row">
+                        <span class="kv-key">Метод по умолчанию</span>
+                        <span class="kv-val">Shell Custom 1.3.2</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Текущий HWID</span>
+                        <span class="kv-val" id="u-hwid-short">Не привязан</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Античиты</span>
+                        <span class="kv-val">Polar · HolyAC · Grim</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dash-actions">
+                    <button class="btn btn-sm btn-rect" type="button" data-cab-goto="configs">Конфиги</button>
+                    <button class="btn btn-sm btn-ghost btn-rect" type="button" data-cab-goto="security">Сбросить HWID</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <!-- Tab 2: Keys & Plans -->
+            <div class="cab-panel is-hidden" id="cab-panel-keys">
+              <div class="cab-grid">
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Активация лицензии</h2>
+                      <span class="gs-val-badge">7D / 30D / 90D / LIFE</span>
+                    </div>
+                    <p class="plan-desc">
+                      Поддерживаются ключи линеек <span class="mono">SHELL-...</span>, <span class="mono">SHL-...</span> и <span class="mono">ENH-...</span>. Срок нового ключа суммируется с активной подпиской.
+                    </p>
+                    <form class="form-stack" id="redeem-form-tab">
+                      <div class="inline-form">
+                        <input class="input mono" id="key-input-tab" type="text" placeholder="SHELL-30D-XXXX" autocomplete="off" required>
+                        <button class="btn btn-white btn-rect" type="submit" id="redeem-submit-tab">Активировать</button>
+                      </div>
+                      <div class="form-msg is-hidden" id="redeem-msg-tab"></div>
+                    </form>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Доступные планы</h2>
+                      <span class="gs-val-badge">1.21.10 Fabric</span>
+                    </div>
+                    <div class="kv-list">
+                      <div class="kv-row">
+                        <span class="kv-key">1 месяц (30 дней)</span>
+                        <a class="btn btn-sm btn-rect" href="index.html#pricing">600 ₽ →</a>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">3 месяца (90 дней)</span>
+                        <a class="btn btn-sm btn-rect" href="index.html#pricing">1 500 ₽ →</a>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Private / Навсегда</span>
+                        <a class="btn btn-sm btn-white btn-rect" href="forum.html?category=private">Форум →</a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cab-card cab-card-full">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">История операций аккаунта</h2>
+                      <span class="gs-val-badge" id="cab-events-count">0</span>
+                    </div>
+                    <div class="cab-events-list" id="cab-events-list"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <!-- Tab 3: Loader & Launch -->
+            <div class="cab-panel is-hidden" id="cab-panel-loader">
+              <div class="cab-grid">
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Лоадер terminal.exe v2.0.0</h2>
+                      <span class="gs-val-badge" id="loader-status-badge">Проверка...</span>
+                    </div>
+                    <p class="plan-desc">
+                      Нативный инжектор без загрузки файлов из сети при запуске — автоматически находит локальную <span class="mono">shell.dll</span> и процесс <span class="mono">javaw.exe</span>.
+                    </p>
+                    <div class="kv-list">
+                      <div class="kv-row">
+                        <span class="kv-key">Основной метод</span>
+                        <span class="kv-val">Shell Custom 1.3.2</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Резервный метод</span>
+                        <span class="kv-val">Manual Map x64</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Целевая версия</span>
+                        <span class="kv-val">Minecraft 1.21.10 Fabric</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="form-msg is-hidden" id="loader-msg"></div>
+                    <div class="dash-actions">
+                      <button class="btn btn-white btn-rect" type="button" id="download-loader-btn">Скачать terminal.exe →</button>
+                      <a class="btn btn-ghost btn-rect" href="index.html#injector">Превью 1:1</a>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Инструкция по запуску</h2>
+                      <span class="gs-val-badge">4 шага</span>
+                    </div>
+                    <ol class="steps-list">
+                      <li>Запустите <code>Minecraft 1.21.10 Fabric</code> и дождитесь главного меню.</li>
+                      <li>Откройте <code>terminal.exe</code> рядом с вашей собранной <code>shell.dll</code>.</li>
+                      <li>Проверьте процесс игры командой <code>ps</code>.</li>
+                      <li>Выполните <code>inject</code> (метод <code>Shell Custom 1.3.2</code>).</li>
+                    </ol>
+                  </div>
+                  <div class="cab-code-box">
+                    <span id="cab-cmd-preview">ps && inject</span>
+                    <button class="btn btn-sm btn-ghost btn-rect" type="button" id="copy-cmd-btn">Копировать</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <!-- Tab 4: Web Configs -->
+            <div class="cab-panel is-hidden" id="cab-panel-configs">
+              <div class="cab-grid">
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Сохранить / импортировать конфиг</h2>
+                      <span class="gs-val-badge">ClickGUI Sync</span>
+                    </div>
+                    <p class="plan-desc">
+                      Конфигурации синхронизируются с интерактивным ClickGUI на главной странице через локальное хранилище.
+                    </p>
+                    <form class="form-stack" id="cab-import-form">
+                      <div class="inline-form">
+                        <input class="input" id="cab-cfg-name" type="text" placeholder="Название профиля (напр. My_FunTime)" required>
+                        <button class="btn btn-white btn-rect" type="submit">Сохранить текущий</button>
+                      </div>
+                      <div class="form-msg is-hidden" id="cab-cfg-msg"></div>
+                    </form>
+                  </div>
+                  <div class="dash-actions">
+                    <button class="btn btn-sm btn-rect" type="button" id="export-cfg-btn">Экспорт активного JSON</button>
+                    <a class="btn btn-sm btn-ghost btn-rect" href="index.html?view=Configs#showcase">Открыть в GUI</a>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Ваши и серверные профили</h2>
+                      <span class="gs-val-badge" id="cab-cfg-count">3</span>
+                    </div>
+                    <div class="cab-events-list" id="cab-cfg-list"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <!-- Tab 5: Security & HWID -->
+            <div class="cab-panel is-hidden" id="cab-panel-security">
+              <div class="cab-grid">
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Аппаратная привязка (HWID)</h2>
+                      <span class="gs-val-badge" id="u-hwid-badge">Свободен</span>
+                    </div>
+                    <div class="kv-list">
+                      <div class="kv-row">
+                        <span class="kv-key">Текущий идентификатор</span>
+                        <span class="kv-val" id="u-hwid">Не привязан</span>
+                      </div>
+                      <div class="kv-row">
+                        <span class="kv-key">Рекомендация</span>
+                        <span class="kv-val">Сбрасывайте при смене ПК/Windows</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="form-msg is-hidden" id="hwid-msg"></div>
+                    <div class="dash-actions">
+                      <button class="btn btn-sm btn-white btn-rect" type="button" id="reset-hwid-btn">Сбросить HWID</button>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cab-card">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Смена пароля</h2>
+                      <span class="gs-val-badge">SHA-256</span>
+                    </div>
+                    <form class="form-stack" id="password-form">
+                      <div class="field">
+                        <label class="field-label" for="cur-password">Текущий пароль</label>
+                        <input class="input" id="cur-password" type="password" autocomplete="current-password" required>
+                      </div>
+                      <div class="field">
+                        <label class="field-label" for="new-password">Новый пароль (от 6 символов)</label>
+                        <input class="input" id="new-password" type="password" autocomplete="new-password" required>
+                      </div>
+                      <div class="form-msg is-hidden" id="pass-msg"></div>
+                      <button class="btn btn-rect" type="submit" id="pass-submit">Обновить пароль</button>
+                    </form>
+                  </div>
+                </section>
+
+                <section class="cab-card cab-card-full">
+                  <div>
+                    <div class="cab-card-head">
+                      <h2 class="cab-card-title">Активные сессии клиента</h2>
+                      <span class="gs-val-badge" id="cab-sessions-count">0</span>
+                    </div>
+                    <div class="cab-events-list" id="cab-sessions-list"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Shell © 2026</span>
+      <div class="footer-links">
+        <a href="forum.html">Форум</a>
+        <a href="faq.html">FAQ</a>
+        <a href="eula.html">EULA</a>
+        <a href="index.html">Главная</a>
+        <span>support@shell.local</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="account.js"></script>
+  <script src="backdrop.js"></script>
+</body>
+</html>

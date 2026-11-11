@@ -1,0 +1,958 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shell — Internal-клиент для Minecraft 1.21.10</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Global Fixed Background (Everywhere on page + mouse spotlight + clickable modules) -->
+  <div class="page-backdrop" id="page-backdrop">
+    <div class="hero-mesh"></div>
+
+    <div class="hero-hud-layer hero-hud-base" id="hero-hud-base">
+      <a class="hud-ghost hg-aimassist" href="index.html?mod=aimassist#showcase" data-jump-mod="aimassist" title="Открыть AimAssist в GUI">
+        <div class="hud-ghost-head"><span>AimAssist</span><span>C</span></div>
+        <div class="hud-ghost-row"><span>Bezier Smooth</span><span>ON</span></div>
+        <div class="hud-ghost-row"><span>FOV</span><span>78°</span></div>
+      </a>
+
+      <a class="hud-ghost hud-ghost-pill hg-autototem" href="index.html?mod=autototem#showcase" data-jump-mod="autototem" title="Открыть AutoTotem в GUI">
+        <div class="hud-ghost-row"><span>AutoTotem</span><span>x48</span></div>
+      </a>
+
+      <a class="hud-ghost hg-triggerbot" href="index.html?mod=triggerbot#showcase" data-jump-mod="triggerbot" title="Открыть TriggerBot в GUI">
+        <div class="hud-ghost-head"><span>TriggerBot</span><span>R</span></div>
+        <div class="hud-ghost-row"><span>Range</span><span>3.00 m</span></div>
+        <div class="hud-ghost-row"><span>Crit Sync</span><span>100%</span></div>
+      </a>
+
+      <a class="hud-ghost hud-ghost-pill hg-preview" href="index.html?mod=preview#showcase" data-jump-mod="preview" title="Открыть Preview в GUI">
+        <div class="hud-ghost-row"><span>X -146</span><span>Y 80</span><span>Z 812</span></div>
+      </a>
+
+      <a class="hud-ghost hg-velocity" href="index.html?mod=velocity#showcase" data-jump-mod="velocity" title="Открыть Velocity в GUI">
+        <div class="hud-ghost-head"><span>Velocity</span><span>85%</span></div>
+        <div class="hud-ghost-row"><span>Mode</span><span>Jump Reset</span></div>
+        <div class="hud-ghost-row"><span>Horiz</span><span>90%</span></div>
+      </a>
+
+      <a class="hud-ghost hg-sprint" href="index.html?mod=sprint#showcase" data-jump-mod="sprint" title="Открыть Sprint в GUI">
+        <div class="hud-ghost-head"><span>Sprint</span><span>TAB</span></div>
+        <div class="hud-ghost-row"><span>Mode</span><span>Legit</span></div>
+        <div class="hud-ghost-row"><span>Water</span><span>Keep</span></div>
+      </a>
+
+      <a class="hud-ghost hg-friends" href="index.html?view=Friends#showcase" data-jump-view="Friends" title="Открыть Friends в GUI">
+        <div class="hud-ghost-head"><span>Friends</span><span>02</span></div>
+        <div class="hud-ghost-row"><span>ShellFriend</span><span>Safe</span></div>
+        <div class="hud-ghost-row"><span>Alex_PvP</span><span>Safe</span></div>
+      </a>
+
+      <a class="hud-ghost hud-ghost-pill hg-interface" href="index.html?mod=interface#showcase" data-jump-mod="interface" title="Открыть Interface в GUI">
+        <div class="hud-ghost-row"><span>Interface</span><span>144 FPS</span><span>RSHIFT</span></div>
+      </a>
+
+      <a class="hud-ghost hg-elements" href="index.html?mod=elements#showcase" data-jump-mod="elements" title="Открыть Elements в GUI">
+        <div class="hud-ghost-head"><span>Elements</span><span>HUD</span></div>
+        <div class="hud-ghost-row"><span>Strength II</span><span>01:42</span></div>
+        <div class="hud-ghost-row"><span>Speed II</span><span>02:10</span></div>
+      </a>
+
+      <a class="hud-ghost hud-ghost-pill hg-configs" href="index.html?view=Configs#showcase" data-jump-view="Configs" title="Открыть Configs в GUI">
+        <div class="hud-ghost-row"><span>Configs</span><span>FunTime_Polar</span></div>
+      </a>
+
+      <a class="hud-ghost hg-notifications" href="index.html?mod=notifications#showcase" data-jump-mod="notifications" title="Открыть Notifications в GUI">
+        <div class="hud-ghost-head"><span>Notifications</span><span>Live</span></div>
+        <div class="hud-ghost-row"><span>TriggerBot</span><span>Enabled</span></div>
+        <div class="hud-ghost-row"><span>Volume</span><span>25%</span></div>
+      </a>
+
+      <a class="hud-ghost hg-playeresp" href="index.html?mod=playeresp#showcase" data-jump-mod="playeresp" title="Открыть PlayerESP в GUI">
+        <div class="hud-ghost-head"><span>PlayerESP</span><span>2D</span></div>
+        <div class="hud-ghost-row"><span>Health Bar</span><span>ON</span></div>
+        <div class="hud-ghost-row"><span>Range</span><span>64 m</span></div>
+      </a>
+
+      <a class="hud-ghost hg-waypoints" href="index.html?mod=waypoints#showcase" data-jump-mod="waypoints" title="Открыть Waypoints в GUI">
+        <div class="hud-ghost-head"><span>Waypoints</span><span>03</span></div>
+        <div class="hud-ghost-row"><span>Spawn</span><span>180 m</span></div>
+        <div class="hud-ghost-row"><span>Arena</span><span>64 m</span></div>
+      </a>
+
+      <a class="hud-ghost hud-ghost-pill hg-loader" href="#injector" data-jump-scroll="#injector" title="Перейти к инжектору">
+        <div class="hud-ghost-row"><span>shell.dll</span><span>Shell Custom 1.3.2</span></div>
+      </a>
+    </div>
+
+    <div class="hero-vignette"></div>
+
+    <div class="hero-lit-wrap" id="hero-lit-wrap" aria-hidden="true">
+      <div class="hero-cursor-fill"></div>
+      <div class="hero-mesh-lit"></div>
+      <div class="hero-hud-layer hero-hud-lit" id="hero-hud-lit"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Shell</span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a class="nav-link" href="#features">Функции</a>
+        <a class="nav-link" href="#status">Статус</a>
+        <a class="nav-link" href="#pricing">Прайс</a>
+        <a class="nav-link" href="forum.html">Форум</a>
+        <a class="nav-link" href="faq.html">FAQ</a>
+        <a class="nav-link" href="eula.html">EULA</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-text-link" id="nav-login-link" href="account.html">Войти</a>
+        <a class="btn btn-white btn-sm" id="nav-account-btn" href="account.html?mode=register">Регистрация →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero -->
+    <section class="hero" id="hero-section">
+      <div class="container">
+        <div class="hero-center">
+          <span class="hero-kicker">MINECRAFT 1.21.10 FABRIC · NATIVE X64</span>
+          <h1 class="hero-title">Shell задаёт<br>высоту</h1>
+          <p class="hero-subtitle">
+            Нативный internal-клиент для Minecraft без модификации JAR-файлов. Прямая инъекция в процесс,
+            проверенные обходы античитов и строгий интерфейс.
+          </p>
+          <div class="hero-cta-row">
+            <a class="btn btn-white" href="#showcase">Изучить Shell ↗</a>
+            <a class="btn btn-ghost" href="#injector">Инжектор 1:1</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Interactive Clickable & Configurable Shell ClickGUI (Matches GUI Screenshot) -->
+    <section class="showcase-section" id="showcase">
+      <div class="container">
+        <div class="gs-shell" id="gs-shell" data-gui-accent="mono" data-gui-pos="bottom" data-gui-glass="0" data-gui-compact="0">
+          <!-- Left Sidebar -->
+          <aside class="gs-sidebar" aria-label="Категории интерфейса Shell">
+            <div>
+              <div class="gs-brand">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+                </svg>
+                <span>Shell</span>
+              </div>
+
+              <div class="gs-group-label">Client Categories</div>
+              <div class="gs-nav-list" id="gs-cat-nav" role="tablist">
+                <button class="gs-nav-btn active" type="button" data-gs-view="all">
+                  <span class="gs-nav-left"><span>All</span></span>
+                  <span class="gs-count-badge" id="gs-all-count">11</span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Combat">
+                  <span class="gs-nav-left"><span>Combat</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Movement">
+                  <span class="gs-nav-left"><span>Movement</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Player">
+                  <span class="gs-nav-left"><span>Player</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Render">
+                  <span class="gs-nav-left"><span>Render</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Visual">
+                  <span class="gs-nav-left"><span>Visual</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Client">
+                  <span class="gs-nav-left"><span>Client</span></span>
+                </button>
+              </div>
+
+              <div class="gs-group-label">Settings</div>
+              <div class="gs-nav-list" id="gs-settings-nav">
+                <button class="gs-nav-btn" type="button" data-gs-view="Configs">
+                  <span class="gs-nav-left"><span>Configs</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Friends">
+                  <span class="gs-nav-left"><span>Friends</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" data-gs-view="Waypoints">
+                  <span class="gs-nav-left"><span>Waypoints</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="gs-footer-links">
+                <button class="gs-nav-btn" type="button" data-gs-view="Client">
+                  <span class="gs-nav-left"><span>Settings</span></span>
+                </button>
+                <button class="gs-nav-btn" type="button" id="gs-focus-search">
+                  <span class="gs-nav-left"><span>Search</span></span>
+                  <span class="gs-kbd">^K</span>
+                </button>
+              </div>
+
+              <a class="gs-user-card" href="account.html">
+                <span class="gs-avatar" id="studio-user-avatar">S</span>
+                <div>
+                  <div class="gs-user-name" id="studio-user-name">ShellPlayer</div>
+                  <div class="gs-user-host">shell.local</div>
+                </div>
+              </a>
+            </div>
+          </aside>
+
+          <!-- Main Interactive Workspace -->
+          <div class="gs-main">
+            <div class="gs-topbar">
+              <div class="gs-topbar-left">
+                <button class="gs-icon-btn" type="button" id="gs-sidebar-toggle" title="Свернуть/развернуть панель" aria-label="Свернуть боковую панель">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="2" y="2.5" width="12" height="11" rx="2.2" stroke="currentColor" stroke-width="1.35"/>
+                    <path d="M6 2.5V13.5" stroke="currentColor" stroke-width="1.35"/>
+                  </svg>
+                </button>
+                <span class="gs-cat-title" id="gs-active-title">All</span>
+              </div>
+
+              <label class="gs-search" for="gs-search-input">
+                <span class="gs-search-ico" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <circle cx="7" cy="7" r="4.8" stroke="currentColor" stroke-width="1.35"/>
+                    <path d="M10.7 10.7L14 14" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <input class="gs-search-input" id="gs-search-input" type="text" placeholder="Search" autocomplete="off">
+                <span class="gs-kbd">^K</span>
+              </label>
+
+              <div class="gs-topbar-right">
+                <button class="gs-icon-btn gs-icon-star" type="button" id="gs-btn-fav" title="Только избранное" aria-label="Только избранное">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M8 2L9.8 5.7L13.8 6.3L10.9 9.1L11.6 13.1L8 11.2L4.4 13.1L5.1 9.1L2.2 6.3L6.2 5.7L8 2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button class="gs-icon-btn" type="button" id="gs-btn-sort" title="Сортировка по алфавиту" aria-label="Сортировать по алфавиту">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 4.5H9.5M3 8H8M3 11.5H6.5M12 4.5V12M12 12L10 10M12 12L14 10" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button class="gs-icon-btn" type="button" id="gs-btn-glass" title="Прозрачность карточек" aria-label="Переключить прозрачность">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="8" cy="8" r="5.2" stroke="currentColor" stroke-width="1.35"/>
+                    <path d="M8 2.8A5.2 5.2 0 0 1 8 13.2V2.8Z" fill="currentColor" opacity="0.75"/>
+                  </svg>
+                </button>
+                <button class="gs-icon-btn" type="button" id="gs-btn-compact" title="Компактный режим" aria-label="Компактный режим">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+                    <rect x="9" y="2.5" width="4.5" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+                    <rect x="2.5" y="9" width="4.5" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+                    <rect x="9" y="9" width="4.5" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+                  </svg>
+                </button>
+                <button class="gs-icon-btn" type="button" id="gs-btn-reset" title="Сбросить настройки по умолчанию" aria-label="Сбросить настройки">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3.2 7A5 5 0 1 1 4.5 11.5M3 3.5V7H6.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="gs-viewport" id="gs-viewport">
+              <div class="gs-masonry" id="gs-masonry"></div>
+            </div>
+
+            <div class="gs-toast-stack" id="gs-toast-stack" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: 1-to-1 terminal.exe Injector Animation -->
+    <section class="section-block" id="injector">
+      <div class="container">
+        <div class="section-center-head">
+          <h2 class="section-sans-title">Нативная загрузка 1:1</h2>
+          <p class="section-center-lead">
+            Лоадер terminal v2.0.0 находит процесс javaw.exe и локальную библиотеку shell.dll без скачивания лишних файлов.
+          </p>
+        </div>
+
+        <div class="inj-showcase-wrap">
+          <div class="inj-aside">
+            <div>
+              <span class="inj-aside-kicker" id="inj-method-kicker">TERMINAL.EXE · SHELL CUSTOM 1.3.2</span>
+              <h3 class="inj-aside-title">Чистая инъекция без артефактов</h3>
+              <p class="inj-aside-desc">
+                Демонстрация повторяет работу консольного лоадера: поиск процесса игры,
+                автоматическое определение локальной DLL и загрузка через метод Shell Custom 1.3.2 или Manual Map.
+              </p>
+            </div>
+
+            <div class="inj-steps-col">
+              <div class="inj-step" data-inj-step="scan">
+                <div class="inj-step-left">
+                  <span class="inj-step-num">01</span>
+                  <span class="inj-step-label">Поиск javaw.exe</span>
+                </div>
+                <span class="inj-step-dot"></span>
+              </div>
+              <div class="inj-step" data-inj-step="locate">
+                <div class="inj-step-left">
+                  <span class="inj-step-num">02</span>
+                  <span class="inj-step-label">Поиск shell.dll</span>
+                </div>
+                <span class="inj-step-dot"></span>
+              </div>
+              <div class="inj-step" data-inj-step="map">
+                <div class="inj-step-left">
+                  <span class="inj-step-num">03</span>
+                  <span class="inj-step-label" id="inj-step-method-label">Shell Custom 1.3.2</span>
+                </div>
+                <span class="inj-step-dot"></span>
+              </div>
+              <div class="inj-step" data-inj-step="done">
+                <div class="inj-step-left">
+                  <span class="inj-step-num">04</span>
+                  <span class="inj-step-label">Готово к игре</span>
+                </div>
+                <span class="inj-step-dot"></span>
+              </div>
+            </div>
+
+            <div class="inj-aside-actions">
+              <button class="btn btn-sm btn-white btn-rect" type="button" id="inj-replay">Повторить анимацию</button>
+              <a class="btn btn-sm btn-ghost btn-rect" href="account.html">Кабинет</a>
+            </div>
+          </div>
+
+          <div class="inj-stage-area">
+            <div class="inj-stage-bar">
+              <span>Команды: ps · inject · method · dll · help</span>
+              <div class="inj-method-bar" role="group" aria-label="Метод инъекции">
+                <button class="inj-method-btn active" type="button" data-inj-method="custom">Shell Custom 1.3.2</button>
+                <button class="inj-method-btn" type="button" data-inj-method="manual">Manual Map</button>
+                <span class="studio-pill-indicator" id="inj-stage">ps</span>
+              </div>
+            </div>
+
+            <div class="inj-window" aria-label="Окно инжектора terminal 1 в 1">
+              <div class="inj-titlebar">
+                <div class="inj-lights">
+                  <span class="inj-dot inj-dot-red"></span>
+                  <span class="inj-dot inj-dot-yellow"></span>
+                  <span class="inj-dot inj-dot-green"></span>
+                </div>
+                <div class="inj-title">user  -  zsh  -  terminal</div>
+                <div class="inj-title-spacer">Win64</div>
+              </div>
+              <div class="inj-body" id="inj-body" tabindex="0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Продвинутые возможности (Asymmetric 2x2 Bento Grid) -->
+    <section class="section-block" id="features">
+      <div class="container">
+        <div class="section-center-head">
+          <h2 class="section-sans-title">Продвинутые возможности</h2>
+          <p class="section-center-lead">
+            Проверенный набор модулей: стабильность на античитах, мгновенная загрузка и чистый нативный интерфейс.
+          </p>
+        </div>
+
+        <div class="bento-stack">
+          <div class="bento-row-1">
+            <!-- 01 Игровой GUI -->
+            <article class="bento-card">
+              <div class="bento-visual" aria-hidden="true">
+                <div class="bento-ui-stage">
+                  <div class="bento-float-back">
+                    <div class="mini-panel-head"><span>Function</span><span>○</span></div>
+                    <div class="mini-chip-row"><span>Условия</span><span>2/4</span></div>
+                    <div class="mini-chip-row"><span>Только с оружием</span><span>ON</span></div>
+                    <div class="mini-chip-row"><span>Цвет обводки</span><span>#E4E4E7</span></div>
+                  </div>
+                  <div class="bento-float-front">
+                    <div class="mini-panel-head">
+                      <span>Hud elements</span>
+                      <span class="mini-head-meta"><span>None</span><span>☆</span><span class="mini-switch"></span></span>
+                    </div>
+                    <div class="mini-chip-row"><span>Отображаемые элементы</span><span>7/10</span></div>
+                    <div class="mini-input-bar">Waypoints, Potions, Keybinds, Notifi...</div>
+                    <div class="mini-chip-row"><span>Waypoints</span><span>⚙</span></div>
+                    <div class="mini-chip-row"><span>StaffList</span><span>⚙</span></div>
+                  </div>
+                </div>
+                <div class="bento-fade"></div>
+              </div>
+              <div class="bento-caption">
+                <div class="bento-caption-title">
+                  <span class="bento-num">01</span>
+                  <h3 class="bento-name">Игровой GUI</h3>
+                </div>
+                <p class="bento-desc">Встроенный интерфейс для тонкой настройки каждого модуля прямо в игре.</p>
+              </div>
+            </article>
+
+            <!-- 02 HUD элементы (4 бесконечно движущиеся колонки) -->
+            <article class="bento-card">
+              <div class="bento-visual" aria-hidden="true">
+                <div class="bento-vmarquee">
+                  <!-- Col 1: up -->
+                  <div class="bento-vcol">
+                    <div class="bento-vtrack bento-vtrack-up">
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Potions</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Resistance</span><span>0:07</span></div>
+                        <div class="mini-hud-line"><span>Strength II</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Swiftness II</span><span>0:02</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>StaffList</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Admin</span><span>Online</span></div>
+                        <div class="mini-hud-line"><span>Helper</span><span>Vanish</span></div>
+                        <div class="mini-hud-line"><span>Moderator</span><span>Active</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Potions</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Resistance</span><span>0:07</span></div>
+                        <div class="mini-hud-line"><span>Strength II</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Swiftness II</span><span>0:02</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>StaffList</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Admin</span><span>Online</span></div>
+                        <div class="mini-hud-line"><span>Helper</span><span>Vanish</span></div>
+                        <div class="mini-hud-line"><span>Moderator</span><span>Active</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Col 2: down -->
+                  <div class="bento-vcol">
+                    <div class="bento-vtrack bento-vtrack-down">
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Cooldowns</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Ender Pearl</span><span>0:14</span></div>
+                        <div class="mini-hud-line"><span>Golden Apple</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Chorus</span><span>0:08</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Waypoints</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Spawn</span><span>812m</span></div>
+                        <div class="mini-hud-line"><span>ShellHome</span><span>12m</span></div>
+                        <div class="mini-hud-line"><span>Arena</span><span>628m</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Cooldowns</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Ender Pearl</span><span>0:14</span></div>
+                        <div class="mini-hud-line"><span>Golden Apple</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Chorus</span><span>0:08</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Waypoints</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Spawn</span><span>812m</span></div>
+                        <div class="mini-hud-line"><span>ShellHome</span><span>12m</span></div>
+                        <div class="mini-hud-line"><span>Arena</span><span>628m</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Col 3: up -->
+                  <div class="bento-vcol">
+                    <div class="bento-vtrack bento-vtrack-up">
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Keybinds</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>SwingAnim</span><span>K</span></div>
+                        <div class="mini-hud-line"><span>HitboxTweaks</span><span>R</span></div>
+                        <div class="mini-hud-line"><span>Trajectory</span><span>V</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Potions</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Resistance</span><span>0:07</span></div>
+                        <div class="mini-hud-line"><span>Strength II</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Swiftness</span><span>0:02</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Keybinds</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>SwingAnim</span><span>K</span></div>
+                        <div class="mini-hud-line"><span>HitboxTweaks</span><span>R</span></div>
+                        <div class="mini-hud-line"><span>Trajectory</span><span>V</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Potions</span><span>03</span></div>
+                        <div class="mini-hud-line"><span>Resistance</span><span>0:07</span></div>
+                        <div class="mini-hud-line"><span>Strength II</span><span>0:22</span></div>
+                        <div class="mini-hud-line"><span>Swiftness</span><span>0:02</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Col 4: down -->
+                  <div class="bento-vcol">
+                    <div class="bento-vtrack bento-vtrack-down">
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>TargetHUD</span><span>20HP</span></div>
+                        <div class="mini-hud-line"><span>Distance</span><span>3.02m</span></div>
+                        <div class="mini-hud-line"><span>HurtTime</span><span>0</span></div>
+                        <div class="mini-hud-line"><span>Armor</span><span>Diamond</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Watermark</span><span>HUD</span></div>
+                        <div class="mini-hud-line"><span>Shell</span><span>1.21.10</span></div>
+                        <div class="mini-hud-line"><span>FPS</span><span>144</span></div>
+                        <div class="mini-hud-line"><span>Ping</span><span>14 ms</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>TargetHUD</span><span>20HP</span></div>
+                        <div class="mini-hud-line"><span>Distance</span><span>3.02m</span></div>
+                        <div class="mini-hud-line"><span>HurtTime</span><span>0</span></div>
+                        <div class="mini-hud-line"><span>Armor</span><span>Diamond</span></div>
+                      </div>
+                      <div class="mini-hud-box">
+                        <div class="mini-hud-title"><span>Watermark</span><span>HUD</span></div>
+                        <div class="mini-hud-line"><span>Shell</span><span>1.21.10</span></div>
+                        <div class="mini-hud-line"><span>FPS</span><span>144</span></div>
+                        <div class="mini-hud-line"><span>Ping</span><span>14 ms</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bento-fade"></div>
+              </div>
+              <div class="bento-caption">
+                <div class="bento-caption-title">
+                  <span class="bento-num">02</span>
+                  <h3 class="bento-name">HUD элементы</h3>
+                </div>
+                <p class="bento-desc">Настраиваемые экранные виджеты — кейбинды, зелья, путевые точки, кулдауны и многое другое.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="bento-row-2">
+            <!-- 03 Конфиги и доступ -->
+            <article class="bento-card">
+              <div class="bento-visual" aria-hidden="true">
+                <div class="bento-cfg-list">
+                  <div class="mini-panel-head"><span>Приватные ключи</span><span>✓</span></div>
+                  <div class="mini-chip-row"><span>SHELL-30D-8K2M</span><span>✓</span></div>
+                  <div class="mini-chip-row"><span>SHELL-LIFE-4R9P</span><span>✓</span></div>
+                  <div class="mini-chip-row"><span>SHL-90D-7V3A</span><span>✓</span></div>
+                  <div class="mini-chip-row"><span>HWID Binding</span><span>Active</span></div>
+                </div>
+                <div class="bento-cfg-hero">
+                  <div class="mini-panel-head">
+                    <span>Legit_04</span>
+                    <span class="mini-head-meta"><span>★</span><span>✓</span></span>
+                  </div>
+                  <p class="bento-cfg-sub">
+                    Лёгкий конфиг для Minecraft с оптимизированными ротациями и хитбоксами — повышает читаемость и комфорт в PvP.
+                  </p>
+                  <div class="bento-cfg-meta">
+                    <span>Создан: 10.11.2026</span>
+                    <span>Polar / HolyAC Safe</span>
+                  </div>
+                </div>
+                <div class="bento-fade"></div>
+              </div>
+              <div class="bento-caption">
+                <div class="bento-caption-title">
+                  <span class="bento-num">03</span>
+                  <h3 class="bento-name">Профиль и конфиги</h3>
+                </div>
+                <p class="bento-desc">Настраивайте профили под разные серверы, активируйте ключи и управляйте привязкой HWID.</p>
+              </div>
+            </article>
+
+            <!-- 04 Элементы (5 бесконечно движущихся горизонтальных рядов) -->
+            <article class="bento-card">
+              <div class="bento-visual" aria-hidden="true">
+                <div class="bento-hstreams">
+                  <div class="bento-hrow">
+                    <div class="bento-htrack bento-htrack-left">
+                      <span class="mini-pill"><span class="mini-pill-tag">ON</span> <strong>TriggerBot</strong></span>
+                      <span class="mini-pill"><strong>19.6 TPS</strong></span>
+                      <span class="mini-pill">ShellPlayer <strong>использовал Золотое яблоко</strong></span>
+                      <span class="mini-pill">Waypoint <strong>812m</strong></span>
+                      <span class="mini-pill"><span class="mini-pill-tag">ON</span> <strong>TriggerBot</strong></span>
+                      <span class="mini-pill"><strong>19.6 TPS</strong></span>
+                      <span class="mini-pill">ShellPlayer <strong>использовал Золотое яблоко</strong></span>
+                      <span class="mini-pill">Waypoint <strong>812m</strong></span>
+                    </div>
+                  </div>
+                  <div class="bento-hrow">
+                    <div class="bento-htrack bento-htrack-right">
+                      <span class="mini-pill"><strong>X -146 Y 80 Z 812</strong></span>
+                      <span class="mini-pill"><strong>Пользователь</strong> Shell</span>
+                      <span class="mini-pill">Waypoints</span>
+                      <span class="mini-pill">Cooldowns <strong>0:14</strong></span>
+                      <span class="mini-pill"><strong>X -146 Y 80 Z 812</strong></span>
+                      <span class="mini-pill"><strong>Пользователь</strong> Shell</span>
+                      <span class="mini-pill">Waypoints</span>
+                      <span class="mini-pill">Cooldowns <strong>0:14</strong></span>
+                    </div>
+                  </div>
+                  <div class="bento-hrow">
+                    <div class="bento-htrack bento-htrack-left bento-htrack-slow">
+                      <span class="mini-pill">Добавлен <strong>ShellFriend</strong></span>
+                      <span class="mini-pill"><strong>Shell</strong> 144 FPS · 14 MS</span>
+                      <span class="mini-pill">Shell Custom 1.3.2</span>
+                      <span class="mini-pill">14 MS</span>
+                      <span class="mini-pill">Добавлен <strong>ShellFriend</strong></span>
+                      <span class="mini-pill"><strong>Shell</strong> 144 FPS · 14 MS</span>
+                      <span class="mini-pill">Shell Custom 1.3.2</span>
+                      <span class="mini-pill">14 MS</span>
+                    </div>
+                  </div>
+                  <div class="bento-hrow">
+                    <div class="bento-htrack bento-htrack-right bento-htrack-slow">
+                      <span class="mini-pill">Waypoint <strong>812m</strong></span>
+                      <span class="mini-pill"><strong>x5</strong></span>
+                      <span class="mini-pill"><strong>x48</strong> Totem</span>
+                      <span class="mini-pill"><strong>Keybinds</strong> RSHIFT</span>
+                      <span class="mini-pill">Waypoint <strong>812m</strong></span>
+                      <span class="mini-pill"><strong>x5</strong></span>
+                      <span class="mini-pill"><strong>x48</strong> Totem</span>
+                      <span class="mini-pill"><strong>Keybinds</strong> RSHIFT</span>
+                    </div>
+                  </div>
+                  <div class="bento-hrow">
+                    <div class="bento-htrack bento-htrack-left">
+                      <span class="mini-pill"><strong>144 FPS</strong></span>
+                      <span class="mini-pill">x48 <strong>Золотое яблоко</strong></span>
+                      <span class="mini-pill">Cooldowns</span>
+                      <span class="mini-pill"><strong>AimAssist</strong> Bezier</span>
+                      <span class="mini-pill"><strong>144 FPS</strong></span>
+                      <span class="mini-pill">x48 <strong>Золотое яблоко</strong></span>
+                      <span class="mini-pill">Cooldowns</span>
+                      <span class="mini-pill"><strong>AimAssist</strong> Bezier</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bento-fade"></div>
+              </div>
+              <div class="bento-caption">
+                <div class="bento-caption-title">
+                  <span class="bento-num">04</span>
+                  <h3 class="bento-name">Элементы</h3>
+                </div>
+                <p class="bento-desc">Множество экранных элементов, уведомлений и статусных списков с гибкой настройкой под себя.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Статус на античитах -->
+    <section class="section-block" id="status">
+      <div class="container">
+        <div class="section-center-head">
+          <h2 class="section-sans-title">Статус на античитах</h2>
+          <p class="section-center-lead">
+            Регулярное тестирование сборок Shell на актуальных серверных ядрах и ручных проверках.
+          </p>
+        </div>
+
+        <div class="panel-card">
+          <div class="status-strip">
+            <div class="status-cell">
+              <span class="status-cell-label">Общий статус</span>
+              <span class="status-cell-value status-ok">Undetected</span>
+            </div>
+            <div class="status-cell">
+              <span class="status-cell-label">Актуальный билд</span>
+              <span class="status-cell-value">shell.dll · x64</span>
+            </div>
+            <div class="status-cell">
+              <span class="status-cell-label">Последняя проверка</span>
+              <span class="status-cell-value">10.11.2026</span>
+            </div>
+            <div class="status-cell">
+              <span class="status-cell-label">Метод инъекции</span>
+              <span class="status-cell-value" id="status-method">Shell Custom 1.3.2</span>
+            </div>
+          </div>
+
+          <div class="ac-table-wrap">
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Античит</th>
+                  <th>Ветка / Среда</th>
+                  <th>Статус</th>
+                  <th>Проверено</th>
+                  <th>Примечание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ac-name">Polar</td>
+                  <td class="mono">Cloud · FunTime</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">10.11.2026</td>
+                  <td>Отработка Combat и TriggerBot в границах легитной кривой</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">HolyAC</td>
+                  <td class="mono">Custom · HolyWorld</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">10.11.2026</td>
+                  <td>Синхронизация ротаций, движений и пакетов без флагов</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">GrimAC</td>
+                  <td class="mono">2.3.x · Vanilla / PvP</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">10.11.2026</td>
+                  <td>Плавные ротации и стабилизация отдачи без флагов</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">Intave</td>
+                  <td class="mono">14.8.x</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">09.11.2026</td>
+                  <td>Адаптивные интервалы кликов и фильтр срывов прицела</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">Vulcan</td>
+                  <td class="mono">2.9.x</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">10.11.2026</td>
+                  <td>Полная совместимость модулей движения и дистанции удара</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">Matrix</td>
+                  <td class="mono">7.x</td>
+                  <td><span class="status-pill status-warn"><span class="status-dot"></span>Use Safe</span></td>
+                  <td class="mono">08.11.2026</td>
+                  <td>Combat и Visuals чисто; жёсткий Velocity не рекомендуется</td>
+                </tr>
+                <tr>
+                  <td class="ac-name">ScreenShare</td>
+                  <td class="mono">Ручная проверка</td>
+                  <td><span class="status-pill status-ok"><span class="status-dot"></span>Undetected</span></td>
+                  <td class="mono">10.11.2026</td>
+                  <td>Локальная инъекция без модификации папки mods</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Простые цены (Matches Uploaded Ref Image 2) -->
+    <section class="section-block" id="pricing">
+      <div class="container">
+        <div class="section-center-head">
+          <h2 class="section-sans-title">Простые цены</h2>
+          <p class="section-center-lead">Одна подписка. Все возможности.</p>
+        </div>
+
+        <div class="edition-switch-wrap">
+          <div class="edition-switch" role="tablist" aria-label="Версия клиента">
+            <button class="edition-btn active" type="button" data-edition="stable" aria-selected="true">СТАБИЛЬНАЯ · 1.21.10</button>
+            <button class="edition-btn" type="button" data-edition="beta" aria-selected="false">БЕТА · 1.21.11</button>
+          </div>
+        </div>
+
+        <div class="pricing-3col">
+          <!-- 1 МЕСЯЦ -->
+          <article class="price-card" data-plan="30d">
+            <div class="price-dots" aria-hidden="true"><div class="price-dots-fade"></div></div>
+
+            <div>
+              <div class="price-card-top">
+                <span class="price-brand">Shell Client</span>
+                <span class="price-period-pill">1 МЕСЯЦ</span>
+              </div>
+
+              <div class="price-amount-row">
+                <span class="price-amount" data-price-stable="600 ₽" data-price-beta="790 ₽">600 ₽</span>
+                <span class="price-unit">/мес</span>
+              </div>
+
+              <div class="price-versions">
+                <span>— Minecraft</span>
+                <span class="ver-chip" data-edition-chip>1.21.10</span>
+                <span class="ver-chip">Fabric</span>
+                <span class="ver-chip">Win64</span>
+              </div>
+
+              <div class="price-features">
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Полный доступ</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Регулярные обновления</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Лоадер terminal</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Все модули</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Сброс HWID</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pay-label">— Способ оплаты</div>
+              <div class="pay-grid" role="group" aria-label="Способ оплаты для тарифа 1 месяц">
+                <button class="pay-option active" type="button" data-pay="sbp">СБП</button>
+                <button class="pay-option" type="button" data-pay="card_ru">Карта RU</button>
+                <button class="pay-option" type="button" data-pay="card_eu">Карта EU</button>
+                <button class="pay-option" type="button" data-pay="funpay">FunPay</button>
+                <button class="pay-option" type="button" data-pay="yoomoney">ЮMoney</button>
+                <button class="pay-option" type="button" data-pay="paypal">PayPal</button>
+                <button class="pay-option" type="button" data-pay="crypto">Crypto</button>
+                <button class="pay-option" type="button" data-pay="cryptobot">CryptoBot</button>
+                <button class="pay-option" type="button" data-pay="stars">Stars</button>
+                <button class="pay-option" type="button" data-pay="erip">ЕРИП</button>
+                <button class="pay-option" type="button" data-pay="currency">Валюта</button>
+                <button class="pay-option" type="button" data-pay="balance">Баланс</button>
+              </div>
+              <a class="btn btn-white btn-lg-compact btn-full" data-buy-link="30d" href="account.html?plan=30d&pay=sbp">Оплатить 600 ₽ →</a>
+              <div class="price-legal-note">
+                Оплачивая, вы принимаете <a href="eula.html">пользовательское соглашение</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 МЕСЯЦА -->
+          <article class="price-card price-card-featured" data-plan="90d">
+            <div class="price-dots" aria-hidden="true"><div class="price-dots-fade"></div></div>
+
+            <div>
+              <div class="price-card-top">
+                <span class="price-brand">Shell Client</span>
+                <span class="price-period-pill">3 МЕСЯЦА</span>
+              </div>
+
+              <div class="price-amount-row">
+                <span class="price-amount" data-price-stable="1 500 ₽" data-price-beta="1 990 ₽">1 500 ₽</span>
+                <span class="price-unit">/квартал</span>
+              </div>
+
+              <div class="price-versions">
+                <span>— Minecraft</span>
+                <span class="ver-chip" data-edition-chip>1.21.10</span>
+                <span class="ver-chip">Fabric</span>
+                <span class="ver-chip">Win64</span>
+              </div>
+
+              <div class="price-features">
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Полный доступ</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Регулярные обновления</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Приоритет в поддержке</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Все модули</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Сброс HWID</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pay-label">— Способ оплаты</div>
+              <div class="pay-grid" role="group" aria-label="Способ оплаты для тарифа 3 месяца">
+                <button class="pay-option active" type="button" data-pay="sbp">СБП</button>
+                <button class="pay-option" type="button" data-pay="card_ru">Карта RU</button>
+                <button class="pay-option" type="button" data-pay="card_eu">Карта EU</button>
+                <button class="pay-option" type="button" data-pay="funpay">FunPay</button>
+                <button class="pay-option" type="button" data-pay="yoomoney">ЮMoney</button>
+                <button class="pay-option" type="button" data-pay="paypal">PayPal</button>
+                <button class="pay-option" type="button" data-pay="crypto">Crypto</button>
+                <button class="pay-option" type="button" data-pay="cryptobot">CryptoBot</button>
+                <button class="pay-option" type="button" data-pay="stars">Stars</button>
+                <button class="pay-option" type="button" data-pay="erip">ЕРИП</button>
+                <button class="pay-option" type="button" data-pay="currency">Валюта</button>
+                <button class="pay-option" type="button" data-pay="balance">Баланс</button>
+              </div>
+              <a class="btn btn-white btn-lg-compact btn-full" data-buy-link="90d" href="account.html?plan=90d&pay=sbp">Оплатить 1 500 ₽ →</a>
+              <div class="price-legal-note">
+                Оплачивая, вы принимаете <a href="eula.html">пользовательское соглашение</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PRIVATE / НАВСЕГДА -->
+          <article class="price-card" data-plan="lifetime">
+            <div class="price-dots" aria-hidden="true"><div class="price-dots-fade"></div></div>
+
+            <div>
+              <div class="price-card-top">
+                <span class="price-brand">Shell Client</span>
+                <span class="price-period-pill">PRIVATE / НАВСЕГДА</span>
+              </div>
+
+              <div class="price-amount-row">
+                <span class="price-amount" data-price-stable="Private" data-price-beta="Private">Private</span>
+                <span class="price-unit">/навсегда</span>
+              </div>
+
+              <div class="price-versions">
+                <span>— Minecraft</span>
+                <span class="ver-chip" data-edition-chip>1.21.10</span>
+                <span class="ver-chip">Fabric</span>
+                <span class="ver-chip">Win64</span>
+              </div>
+
+              <div class="price-features">
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Полный доступ</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Все будущие патчи</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Закрытый форум</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Все модули</span></div>
+                <div class="price-feat-item"><span class="price-feat-mark">+</span><span>Безлимитный HWID</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="pay-label">— Доступ Private</div>
+              <div class="price-private-box">
+                <div class="price-private-row"><span>Статус ветки</span><span class="price-private-val">Private / Навсегда</span></div>
+                <div class="price-private-row"><span>Обновления</span><span class="price-private-val">Пожизненные</span></div>
+                <div class="price-private-row"><span>Оформление</span><span class="price-private-val">Через форум</span></div>
+              </div>
+              <a class="btn btn-white btn-lg-compact btn-full" data-forum-link="true" href="forum.html?category=private">Форум →</a>
+              <div class="price-legal-note">
+                Подробности раздела <a href="forum.html?category=private">Private / Навсегда</a> на форуме
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="pricing-footnote">
+          Также поддерживается активация ключей на 7 дней в <a href="account.html">личном кабинете</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Shell © 2026</span>
+      <div class="footer-links">
+        <a href="forum.html">Форум</a>
+        <a href="faq.html">FAQ</a>
+        <a href="eula.html">EULA</a>
+        <a href="account.html">Кабинет</a>
+        <span>support@shell.local</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="backdrop.js"></script>
+</body>
+</html>

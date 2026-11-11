@@ -1,0 +1,113 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shell — FAQ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-backdrop" id="page-backdrop">
+    <div class="hero-mesh"></div>
+    <div class="hero-hud-layer hero-hud-base" id="hero-hud-base"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-lit-wrap" id="hero-lit-wrap" aria-hidden="true">
+      <div class="hero-cursor-fill"></div>
+      <div class="hero-mesh-lit"></div>
+      <div class="hero-hud-layer hero-hud-lit" id="hero-hud-lit"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Shell</span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a class="nav-link" href="index.html#features">Функции</a>
+        <a class="nav-link" href="index.html#status">Статус</a>
+        <a class="nav-link" href="index.html#pricing">Прайс</a>
+        <a class="nav-link" href="forum.html">Форум</a>
+        <a class="nav-link active" href="faq.html">FAQ</a>
+        <a class="nav-link" href="eula.html">EULA</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-text-link" id="nav-login-link" href="account.html">Войти</a>
+        <a class="btn btn-white btn-sm" id="nav-account-btn" href="account.html?mode=register">Регистрация →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main doc-page">
+    <div class="container">
+      <div class="panel-card">
+        <div class="doc-head">
+          <span class="section-kicker">04 / DOCUMENTATION</span>
+          <h1 class="doc-title">Частые вопросы</h1>
+          <p class="doc-lead">Технические ответы по инъекции, совместимости версий и работе с подпиской Shell.</p>
+        </div>
+
+        <div class="doc-list">
+          <div class="doc-row">
+            <h2 class="doc-row-title">Как активировать ключ подписки?</h2>
+            <p class="doc-row-body">
+              Зарегистрируйтесь или войдите в <a href="account.html">личном кабинете</a>, перейдите в блок «Активация ключа» и введите выданный ключ формата <span class="mono">SHELL-30D-...</span> или <span class="mono">SHELL-LIFE-...</span>. Доступ начисляется сразу после подтверждения.
+            </p>
+          </div>
+
+          <div class="doc-row">
+            <h2 class="doc-row-title">Какие версии игры поддерживаются?</h2>
+            <p class="doc-row-body">
+              Shell собран под <span class="mono">Minecraft 1.21.10 (Fabric)</span> на Windows 10/11 x64. При выходе обновлений смещения маппингов обновляются в актуальном билде лоадера.
+            </p>
+          </div>
+
+          <div class="doc-row">
+            <h2 class="doc-row-title">Как работает инъекция через terminal.exe?</h2>
+            <p class="doc-row-body">
+              После входа в главное меню игры запустите <span class="mono">terminal.exe</span>. Лоадер автоматически определяет <span class="mono">shell.dll</span> из локальной директории сборки без загрузки сторонних файлов из сети, находит <span class="mono">javaw.exe</span> и маппит библиотеку в память.
+            </p>
+          </div>
+
+          <div class="doc-row">
+            <h2 class="doc-row-title">Можно ли продлить подписку или сменить ПК?</h2>
+            <p class="doc-row-body">
+              Да. Новые ключи суммируются с оставшимся сроком активной лицензии. Если вы сменили комплектующие или переустановили систему, привязку HWID можно сбросить напрямую в личном кабинете.
+            </p>
+          </div>
+
+          <div class="doc-row">
+            <h2 class="doc-row-title">Истекает ли доступ «Навсегда»?</h2>
+            <p class="doc-row-body">
+              Нет. Лицензия Навсегда (Lifetime) предоставляет бессрочный доступ ко всем модулям, обновлениям ветки и приоритетной поддержке на одном аккаунте Shell.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Shell © 2026</span>
+      <div class="footer-links">
+        <a href="forum.html">Форум</a>
+        <a href="faq.html">FAQ</a>
+        <a href="eula.html">EULA</a>
+        <a href="account.html">Кабинет</a>
+        <span>support@shell.local</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="backdrop.js"></script>
+</body>
+</html>

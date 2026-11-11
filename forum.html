@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shell — Форум</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-backdrop" id="page-backdrop">
+    <div class="hero-mesh"></div>
+    <div class="hero-hud-layer hero-hud-base" id="hero-hud-base"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-lit-wrap" id="hero-lit-wrap" aria-hidden="true">
+      <div class="hero-cursor-fill"></div>
+      <div class="hero-mesh-lit"></div>
+      <div class="hero-hud-layer hero-hud-lit" id="hero-hud-lit"></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+        </svg>
+        Shell
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav-link" href="index.html">Главная</a>
+        <a class="nav-link" href="index.html#showcase">GUI</a>
+        <a class="nav-link" href="index.html#injector">Инжектор</a>
+        <a class="nav-link" href="index.html#pricing">Тарифы</a>
+        <a class="nav-link active" href="forum.html">Форум</a>
+        <a class="nav-link" href="faq.html">FAQ</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <a class="btn btn-sm btn-ghost" href="account.html" id="nav-login-link">Войти</a>
+        <a class="btn btn-sm btn-white" href="account.html" id="nav-account-btn">Кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main account-section">
+    <div class="container account-wrap">
+      <div class="cab-shell">
+        <aside class="cab-sidebar" aria-label="Разделы форума">
+          <div>
+            <div class="gs-brand">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 1.5L9.8 6.2L14.5 8L9.8 9.8L8 14.5L6.2 9.8L1.5 8L6.2 6.2L8 1.5Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+              </svg>
+              <span>Shell Forum</span>
+            </div>
+
+            <div class="gs-group-label">Разделы</div>
+            <div class="gs-nav-list" role="tablist">
+              <button class="gs-nav-btn active" type="button" data-forum-cat="all">
+                <span class="gs-nav-left"><span>Все темы</span></span>
+                <span class="gs-nav-count" id="fc-all">0</span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-forum-cat="news">
+                <span class="gs-nav-left"><span>Обновления</span></span>
+                <span class="gs-nav-count" id="fc-news">0</span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-forum-cat="configs">
+                <span class="gs-nav-left"><span>Конфиги</span></span>
+                <span class="gs-nav-count" id="fc-configs">0</span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-forum-cat="guides">
+                <span class="gs-nav-left"><span>Гайды</span></span>
+                <span class="gs-nav-count" id="fc-guides">0</span>
+              </button>
+              <button class="gs-nav-btn" type="button" data-forum-cat="private">
+                <span class="gs-nav-left"><span>Private / Навсегда</span></span>
+                <span class="gs-nav-count" id="fc-private">0</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="gs-footer-links">
+              <a class="gs-nav-btn" href="index.html#pricing">
+                <span class="gs-nav-left"><span>Тарифы</span></span>
+              </a>
+              <a class="gs-nav-btn" href="account.html">
+                <span class="gs-nav-left"><span>Личный кабинет</span></span>
+              </a>
+            </div>
+
+            <div class="gs-user-card">
+              <span class="gs-avatar" id="forum-user-avatar">Г</span>
+              <div>
+                <div class="gs-user-name" id="forum-user-name">Гость</div>
+                <div class="gs-user-host" id="forum-user-sub">локальный предпросмотр</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="cab-main">
+          <div class="cab-topbar">
+            <div class="gs-topbar-left">
+              <span class="gs-cat-title" id="forum-active-title">Все темы</span>
+            </div>
+
+            <div class="cab-topbar-right">
+              <label class="gs-search">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                </svg>
+                <input type="search" id="forum-search" placeholder="Поиск тем...">
+              </label>
+              <button class="btn btn-sm btn-white btn-rect" type="button" id="forum-new-btn">+ Новая тема</button>
+            </div>
+          </div>
+
+          <div class="cab-viewport">
+            <div class="forum-notice">
+              <p class="forum-notice-text">
+                Базовая структура форума готова (серверную синхронизацию подключим следующим этапом). Заявки и обсуждение <strong>Private / Навсегда</strong> находятся в разделе Private.
+              </p>
+              <a class="btn btn-sm btn-ghost btn-rect" href="index.html#pricing">Тарифы →</a>
+            </div>
+
+            <section class="cab-card is-hidden" id="forum-composer">
+              <div>
+                <div class="cab-card-head">
+                  <h2 class="cab-card-title">Новая тема</h2>
+                  <button class="btn btn-sm btn-ghost btn-rect" type="button" id="forum-composer-close">Отмена</button>
+                </div>
+
+                <form class="form-stack" id="forum-topic-form">
+                  <div class="field">
+                    <label class="field-label" for="topic-cat">Раздел</label>
+                    <select class="input" id="topic-cat">
+                      <option value="configs">Конфиги</option>
+                      <option value="guides">Гайды</option>
+                      <option value="news">Обновления</option>
+                      <option value="private">Private / Навсегда</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label" for="topic-title">Заголовок</label>
+                    <input class="input" id="topic-title" type="text" maxlength="110" placeholder="Например: Конфиг FunTime Polar 1.21.10" required>
+                  </div>
+
+                  <div class="field">
+                    <label class="field-label" for="topic-body">Сообщение</label>
+                    <textarea class="forum-textarea" id="topic-body" maxlength="2000" placeholder="Опишите настройки, профиль или вопрос..." required></textarea>
+                  </div>
+
+                  <div class="form-msg is-hidden" id="topic-msg"></div>
+
+                  <div class="cab-inline-actions">
+                    <button class="btn btn-sm btn-white btn-rect" type="submit">Опубликовать</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <div id="forum-list-view">
+              <div class="forum-list" id="forum-list"></div>
+            </div>
+
+            <div class="cab-panel is-hidden" id="forum-detail-view">
+              <div class="cab-inline-actions">
+                <button class="btn btn-sm btn-ghost btn-rect" type="button" id="forum-back-btn">← К списку тем</button>
+              </div>
+
+              <div class="forum-list" id="forum-detail-posts"></div>
+
+              <section class="cab-card">
+                <div>
+                  <div class="cab-card-head">
+                    <h2 class="cab-card-title">Ответить в теме</h2>
+                  </div>
+
+                  <form class="form-stack" id="forum-reply-form">
+                    <div class="field">
+                      <label class="field-label" for="reply-body">Текст ответа</label>
+                      <textarea class="forum-textarea" id="reply-body" maxlength="1500" placeholder="Напишите комментарий..." required></textarea>
+                    </div>
+                    <div class="form-msg is-hidden" id="reply-msg"></div>
+                    <div class="cab-inline-actions">
+                      <button class="btn btn-sm btn-white btn-rect" type="submit">Отправить ответ</button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Shell © 2026</span>
+      <div class="footer-links">
+        <a href="forum.html">Форум</a>
+        <a href="faq.html">FAQ</a>
+        <a href="eula.html">EULA</a>
+        <a href="account.html">Кабинет</a>
+        <span>support@shell.local</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="forum.js"></script>
+  <script src="backdrop.js"></script>
+</body>
+</html>
